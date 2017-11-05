@@ -1,21 +1,42 @@
 import random
 
 
-def die_roll(num_sides):
-    roll = random.randint(1, int(num_sides))
+# Dice Roll Function
+def die_roll(die_sides):
+    roll = random.randint(1, int(die_sides))
 
-    if roll == 20:
-        return "Critical HIT!"
-    elif roll == 1:
-        return "Critical Fail!"
+    # Rolls for Critical Hit/Fails only on d20
+    if die_sides == '20':
+        if roll == 20:
+            return '"Critical HIT!"'
+        elif roll == 1:
+            return '"Critical Fail!"'
+        else:
+            return str(roll)
+    # Coin
+    elif die_sides == '2':
+        if roll == 1:
+            return str(roll) + " " + '(Heads)'
+        elif roll == 2:
+            return str(roll) + " " + '(Tails)'
     else:
-        return roll
+        return str(roll)
 
 
+# Start of program
 print("Would you like to roll some dice?")
-response = input()
+response = input().lower()
 
-while response.lower() == 'yes':
-    print("How many sides?")
-    num_sides = input()
-    print(die_roll(num_sides))
+if response == 'yes':
+    while response != 0:
+        print("How many sides?")
+        response = input()
+        if response != '0':
+            print("You rolled a " + die_roll(response))
+        else:
+            print("Would you like to quit?")
+            response = input().lower()
+            if response == 'yes':
+                break
+elif response.lower() == 'no':
+    print("Well have fun... I guess...")

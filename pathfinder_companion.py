@@ -2,11 +2,19 @@ import random
 
 
 # Dice Roll Function
-def die_roll(die_sides):
-    roll = random.randint(1, int(die_sides))
+def die_roll(die_sides, die_times):
+
+    # Multiple Dice
+    if die_times == '1':
+        roll = random.randint(1, int(die_sides))
+    elif die_times > '1':
+        roll = random.randint(1, int(die_sides)) * int(die_times)
+    # Need to fix for ZERO input
+    else:
+        return "empty hand...? \nGrab some dice and try again!"
 
     # Rolls for Critical Hit/Fails only on d20
-    if die_sides == '20':
+    if die_sides == '20' and die_times == '1':
         if roll == 20:
             return '"Critical HIT!"'
         elif roll == 1:
@@ -14,7 +22,7 @@ def die_roll(die_sides):
         else:
             return str(roll)
     # Coin
-    elif die_sides == '2':
+    elif die_sides == '2' and die_times == '1':
         if roll == 1:
             return str(roll) + " " + '(Heads)'
         elif roll == 2:
@@ -31,8 +39,10 @@ if response == 'yes':
     while response != 0:
         print("How many sides?")
         response = input()
-        if response != '0':
-            print("You rolled a " + die_roll(response))
+        if response > '0':
+            print("How many times?")
+            times = input()
+            print("You rolled a " + die_roll(response, times))
         else:
             print("Would you like to quit?")
             response = input().lower()

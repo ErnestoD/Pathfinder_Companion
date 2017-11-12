@@ -3,16 +3,19 @@ import random
 
 # Dice Roll Function
 def die_roll(die_sides, die_times):
+    die_count = 0
+    roll = 0
 
     # Multiple Dice
     if die_times == '1':
         roll = random.randint(1, int(die_sides))
     elif die_times > '1':
-        roll = random.randint(1, int(die_sides)) * int(die_times)
+        while die_count != int(die_times):
+            roll += random.randint(1, int(die_sides))
+            die_count += 1
     # Need to fix for ZERO input
     else:
         return "empty hand...? \nGrab some dice and try again!"
-
     # Rolls for Critical Hit/Fails only on d20
     if die_sides == '20' and die_times == '1':
         if roll == 20:
